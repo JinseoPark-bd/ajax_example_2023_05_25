@@ -1,3 +1,22 @@
+<script>
+    function Count1__updateDisplay() {
+        fetch('/count1')
+            .then(response => response.json())
+            .then(json => {
+                document.querySelector('.count-1-display').innerHTML = json.data;
+            });
+        // 5초 뒤에 Count1__updateDisplay 함수가 다시 실행되도록 예약
+        setTimeout(Count1__updateDisplay, 5000);
+    }
+
+    function Count2__updateDisplay() {
+        fetch('/count2')
+            .then(response => response.json())
+            .then(json => {
+                document.querySelector('.count-2-display').innerHTML = json.data;
+            });
+    }
+</script>
 <style>
     .box {
         width: 500px;
@@ -12,11 +31,13 @@
 
 메인 1
 <hr>
-공간 1
-<div class="box">
+공간 1(자동갱신 적용)
+<button onclick="Count1__updateDisplay();">갱신</button>
+<div class="box count-1-display">
     <th:block th:text="${count1}"></th:block>
 </div>
 공간 2
-<div class="box">
+<button onclick="Count2__updateDisplay();">갱신</button>
+<div class="box count-2-display">
     <th:block th:text="${count2}"></th:block>
 </div>
